@@ -64,8 +64,9 @@ export class Player extends Component {
         if (this.isJumping) {
             return;
         }
+
         this.isJumping = true;
-        this._rgAvatar.applyImpulse(Vec3.UP.clone().multiplyScalar(this.jumpHeight));
+        this._rgAvatar.applyImpulse(new Vec3(0,this.jumpHeight));
     }
 
     slide() {
