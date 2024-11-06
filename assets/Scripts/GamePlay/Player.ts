@@ -1,5 +1,6 @@
 import { _decorator, Camera, CapsuleCollider, Component, game, ICollisionEvent, Input, input, KeyCode, Node, RigidBody, Vec3 } from 'cc';
 import { LaneRoad } from '../Common/Enums';
+import { eventTarget, PATH_SPAWNER } from './Events';
 const { ccclass, property } = _decorator;
 
 @ccclass('Player')
@@ -26,6 +27,7 @@ export class Player extends Component {
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
         this._capsuleCollier = this.getComponentInChildren(CapsuleCollider);
         this._capsuleCollier.on('onCollisionEnter', this.onCollisionEnter, this);
+        this._capsuleCollier.on('onCollisionExit', this.onCollisionExit, this);
         this._rgAvatar = this.getComponentInChildren(RigidBody);
         this._avatar = this._rgAvatar.node;
         this._rgAvatar.applyImpulse(Vec3.FORWARD);
@@ -88,8 +90,12 @@ export class Player extends Component {
         const newPlayerPos = new Vec3(0, 0, -this.forwardSpeed * deltaTime);
         this.node.translate(newPlayerPos);
         const avatarPos = this._avatar.position;
-        const newCamPos = new Vec3(this.camera.node.position.x, avatarPos.y + 5, this.node.position.z + 10);
+        const newCamPos = new Vec3(this.node.position.x / 8, avatarPos.y + 2, this.node.position.z + 10);
         this.camera.node.setPosition(newCamPos);
+    }
+
+    onCollisionExit(event: ICollisionEvent) {
+        eventTarget.emit(PATH_SPAWNER, event.otherCollider.node);
     }
 
     onCollisionEnter(event: ICollisionEvent) {
@@ -98,6 +104,7 @@ export class Player extends Component {
         if (contacts.length == 0) {
             return;
         }
+
         const contactPoint = new Vec3();
         contacts[0].getWorldPointOnA(contactPoint);
 

@@ -7,8 +7,9 @@ export class CONSTANT extends Component {
 
     }
 
-    update(deltaTime: number) {
+    spawnNewPath(deltaTime: number) {
         
     }
 }
-
+
+
