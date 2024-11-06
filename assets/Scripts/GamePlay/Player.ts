@@ -1,27 +1,34 @@
-import { _decorator, Component, Input, input, KeyCode, Node, Vec3 } from 'cc';
+import { _decorator, CapsuleCollider, Component, ICollisionEvent, Input, input, KeyCode, Node, RigidBody, Vec3 } from 'cc';
 import { LaneRoad } from '../Common/Enums';
 const { ccclass, property } = _decorator;
 
 @ccclass('Player')
 export class Player extends Component {
     @property
-    forwardSpeed: number = 1; 
+    forwardSpeed: number = 1;
     @property
-    laneDistance: number = 1; 
+    laneDistance: number = 1;
     @property
-    jumpHeight: number = 5; 
+    jumpHeight: number = 10;
     @property
     slideDistance: number = 1;
     @property
-    slideTime: number = 2000; 
+    slideTime: number = 2000;
 
-    private currentLane: LaneRoad = LaneRoad.MidlleLane; 
+    private currentLane: LaneRoad = LaneRoad.MidlleLane;
     private isJumping: boolean = false;
     private isSliding: boolean = false;
-    private verticalVelocity: number = 0; // Tốc độ theo trục y khi nhảy
+    private _rgAvatar: RigidBody;
+    private _avatar: Node;
+    private _capsuleCollier: CapsuleCollider;
 
     start() {
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
+        this._capsuleCollier = this.getComponentInChildren(CapsuleCollider);
+        this._capsuleCollier.on('onCollisionEnter', this.onCollisionEnter, this);
+        this._rgAvatar = this.getComponentInChildren(RigidBody);
+        this._avatar = this._rgAvatar.node;
+        this._rgAvatar.applyImpulse(Vec3.FORWARD);
     }
 
     onDestroy() {
@@ -54,36 +61,45 @@ export class Player extends Component {
     }
 
     jump() {
-        if (!this.isJumping) {
-            this.isJumping = true;
-            this.verticalVelocity = this.jumpHeight;
+        if (this.isJumping) {
+            return;
         }
+        this.isJumping = true;
+        this._rgAvatar.applyImpulse(Vec3.UP.clone().multiplyScalar(this.jumpHeight));
     }
 
     slide() {
-        if (!this.isSliding && !this.isJumping) {
-            this.isSliding = true;
-            this.node.setPosition(this.node.position.x, this.node.position.y - this.slideDistance, this.node.position.z);
-            
-            setTimeout(() => {
-                this.node.setPosition(this.node.position.x, this.node.position.y + this.slideDistance, this.node.position.z);
-                this.isSliding = false;
-            }, this.slideTime); 
+        if (this.isSliding || this.isJumping) {
+            return;
         }
+
+        this.isSliding = true;
+        this._capsuleCollier.cylinderHeight = 0;
+
+        setTimeout(() => {
+            this._capsuleCollier.cylinderHeight = 1;
+            this.isSliding = false;
+        }, this.slideTime);
     }
 
     update(deltaTime: number) {
+        this._avatar.angle = 0;
         this.node.translate(new Vec3(0, 0, -this.forwardSpeed * deltaTime));
+    }
 
-        if (this.isJumping) {
-            this.node.setPosition(this.node.position.x, this.node.position.y + this.verticalVelocity * deltaTime, this.node.position.z);
-            this.verticalVelocity -= 20 * deltaTime;
+    onCollisionEnter(event: ICollisionEvent) {
+        const contacts = event.contacts;
 
-            if (this.node.position.y < 0) {
-                this.node.setPosition(this.node.position.x, 0, this.node.position.z);
-                this.isJumping = false;
-                this.verticalVelocity = 0;
-            }
+        if (contacts.length == 0) {
+            return;
         }
+        const contactPoint = new Vec3();
+        contacts[0].getWorldPointOnA(contactPoint);
+
+        if (contactPoint.y >= this._avatar.position.y - this._capsuleCollier.cylinderHeight * 0.5) {
+            return
+        }
+
+        this.isJumping = false;
     }
 }
