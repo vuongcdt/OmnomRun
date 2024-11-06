@@ -22,6 +22,7 @@ export class Player extends Component {
     private _rgAvatar: RigidBody;
     private _avatar: Node;
     private _capsuleCollier: CapsuleCollider;
+    private _cameraPos: Vec3 = new Vec3();
 
     start() {
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
@@ -31,6 +32,7 @@ export class Player extends Component {
         this._rgAvatar = this.getComponentInChildren(RigidBody);
         this._avatar = this._rgAvatar.node;
         this._rgAvatar.applyImpulse(Vec3.FORWARD);
+        this._cameraPos = this.camera.node.position.clone();
     }
 
     onDestroy() {
@@ -98,11 +100,12 @@ export class Player extends Component {
     }
 
     update(deltaTime: number) {
+        // return;
         this._avatar.angle = 0;
         const newPlayerPos = new Vec3(0, 0, -this.forwardSpeed * deltaTime);
         this.node.translate(newPlayerPos);
         const avatarPos = this._avatar.position;
-        const newCamPos = new Vec3(this.node.position.x / 8, avatarPos.y + 2, this.node.position.z + 10);
+        const newCamPos = new Vec3(this.node.position.x / 8, avatarPos.y + this._cameraPos.y, this.node.position.z + this._cameraPos.z);
         this.camera.node.setPosition(newCamPos);
     }
 
