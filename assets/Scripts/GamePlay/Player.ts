@@ -14,7 +14,7 @@ export class Player extends Component {
     @property
     private jumpHeight: number = 10;
     @property
-    private slideTime: number = 2000;
+    private slideTime: number = 1000;
 
     private _currentLane: LaneRoad = LaneRoad.MidlleLane;
     private _isJumping: boolean = false;
@@ -107,7 +107,7 @@ export class Player extends Component {
     }
 
     onCollisionExit(event: ICollisionEvent) {
-        eventTarget.emit(PATH_SPAWNER, event.otherCollider.node);
+        eventTarget.emit(PATH_SPAWNER, this.node.position.z);
     }
 
     onCollisionEnter(event: ICollisionEvent) {

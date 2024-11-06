@@ -29,16 +29,12 @@ export class PathSpawner extends Component {
         return segment;
     }
 
-    private spawnNewPath(data) {
-        const index = this._roadSegments.indexOf(data);
-
-        const startRoad = this._roadSegments[(this.numberOfSegments + index - 2) % this.numberOfSegments];
-
-        const indexEndRoad = (this.numberOfSegments + index - 3) % this.numberOfSegments;
-
-        const endRoad = this._roadSegments[indexEndRoad];
-
-        startRoad.setPosition(0, 0, endRoad.position.z - this.segmentLength);
+    private spawnNewPath(playerZ: number) {
+        this._roadSegments.forEach(road => {
+            if (road.position.z > playerZ + this.segmentLength) {
+                road.setPosition(0, 0, road.position.z - (this.numberOfSegments - 1) * this.segmentLength);
+            }
+        })
     }
 }
 
