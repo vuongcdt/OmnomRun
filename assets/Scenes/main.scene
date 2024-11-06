@@ -181,7 +181,7 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 5,
-      "z": 10
+      "z": 9
     },
     "_lrot": {
       "__type__": "cc.Quat",
@@ -517,10 +517,12 @@
     },
     "_enabled": true,
     "__prefab": null,
+    "camera": {
+      "__id__": 6
+    },
     "forwardSpeed": 5,
     "laneDistance": 3,
-    "jumpHeight": 7,
-    "slideDistance": 1,
+    "jumpHeight": 10,
     "slideTime": 2000,
     "_id": "dd3joWlLlBVaG/1HI5Aaag"
   },
@@ -760,8 +762,8 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 1,
-      "z": -10
+      "y": 1.5,
+      "z": -15
     },
     "_lrot": {
       "__type__": "cc.Quat",
@@ -772,8 +774,8 @@
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 9,
-      "y": 1,
+      "x": 3,
+      "y": 3,
       "z": 11
     },
     "_mobility": 0,

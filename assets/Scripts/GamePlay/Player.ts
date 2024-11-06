@@ -1,23 +1,23 @@
-import { _decorator, CapsuleCollider, Component, ICollisionEvent, Input, input, KeyCode, Node, RigidBody, Vec3 } from 'cc';
+import { _decorator, Camera, CapsuleCollider, Component, game, ICollisionEvent, Input, input, KeyCode, Node, RigidBody, Vec3 } from 'cc';
 import { LaneRoad } from '../Common/Enums';
 const { ccclass, property } = _decorator;
 
 @ccclass('Player')
 export class Player extends Component {
+    @property(Camera)
+    private camera: Camera;
     @property
-    forwardSpeed: number = 1;
+    private forwardSpeed: number = 1;
     @property
-    laneDistance: number = 1;
+    private laneDistance: number = 1;
     @property
-    jumpHeight: number = 10;
+    private jumpHeight: number = 10;
     @property
-    slideDistance: number = 1;
-    @property
-    slideTime: number = 2000;
+    private slideTime: number = 2000;
 
-    private currentLane: LaneRoad = LaneRoad.MidlleLane;
-    private isJumping: boolean = false;
-    private isSliding: boolean = false;
+    private _currentLane: LaneRoad = LaneRoad.MidlleLane;
+    private _isJumping: boolean = false;
+    private _isSliding: boolean = false;
     private _rgAvatar: RigidBody;
     private _avatar: Node;
     private _capsuleCollier: CapsuleCollider;
@@ -35,7 +35,7 @@ export class Player extends Component {
         input.off(Input.EventType.KEY_DOWN, this.onKeyDown, this);
     }
 
-    onKeyDown(event: any) {
+    private onKeyDown(event: any) {
         switch (event.keyCode) {
             case KeyCode.KEY_A:
                 this.changeLane(-1);
@@ -52,40 +52,44 @@ export class Player extends Component {
         }
     }
 
-    changeLane(direction: number) {
-        this.currentLane += direction;
-        this.currentLane = Math.max(0, Math.min(2, this.currentLane));
+    private changeLane(direction: number) {
+        this._currentLane += direction;
+        this._currentLane = Math.max(0, Math.min(2, this._currentLane));
 
-        const targetPosition = new Vec3(this.currentLane * this.laneDistance - this.laneDistance, this.node.position.y, this.node.position.z);
+        const targetPosition = new Vec3(this._currentLane * this.laneDistance - this.laneDistance, this.node.position.y, this.node.position.z);
         this.node.setPosition(targetPosition);
     }
 
-    jump() {
-        if (this.isJumping) {
+    private jump() {
+        if (this._isJumping) {
             return;
         }
 
-        this.isJumping = true;
-        this._rgAvatar.applyImpulse(new Vec3(0,this.jumpHeight));
+        this._isJumping = true;
+        this._rgAvatar.applyImpulse(new Vec3(0, this.jumpHeight));
     }
 
-    slide() {
-        if (this.isSliding || this.isJumping) {
+    private slide() {
+        if (this._isSliding || this._isJumping) {
             return;
         }
 
-        this.isSliding = true;
+        this._isSliding = true;
         this._capsuleCollier.cylinderHeight = 0;
 
         setTimeout(() => {
             this._capsuleCollier.cylinderHeight = 1;
-            this.isSliding = false;
+            this._isSliding = false;
         }, this.slideTime);
     }
 
     update(deltaTime: number) {
         this._avatar.angle = 0;
-        this.node.translate(new Vec3(0, 0, -this.forwardSpeed * deltaTime));
+        const newPlayerPos = new Vec3(0, 0, -this.forwardSpeed * deltaTime);
+        this.node.translate(newPlayerPos);
+        const avatarPos = this._avatar.position;
+        const newCamPos = new Vec3(this.camera.node.position.x, avatarPos.y + 5, this.node.position.z + 10);
+        this.camera.node.setPosition(newCamPos);
     }
 
     onCollisionEnter(event: ICollisionEvent) {
@@ -98,9 +102,11 @@ export class Player extends Component {
         contacts[0].getWorldPointOnA(contactPoint);
 
         if (contactPoint.y >= this._avatar.position.y - this._capsuleCollier.cylinderHeight * 0.5) {
+            game.pause();
+            console.log('game over');
             return
         }
 
-        this.isJumping = false;
+        this._isJumping = false;
     }
 }
