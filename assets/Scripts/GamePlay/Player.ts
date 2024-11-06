@@ -51,6 +51,18 @@ export class Player extends Component {
             case KeyCode.KEY_S:
                 this.slide();
                 break;
+            case KeyCode.ARROW_LEFT:
+                this.changeLane(-1);
+                break;
+            case KeyCode.ARROW_RIGHT:
+                this.changeLane(1);
+                break;
+            case KeyCode.ARROW_UP:
+                this.jump();
+                break;
+            case KeyCode.ARROW_DOWN:
+                this.slide();
+                break;
         }
     }
 

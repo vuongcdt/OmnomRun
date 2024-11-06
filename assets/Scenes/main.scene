@@ -528,7 +528,7 @@
     "forwardSpeed": 5,
     "laneDistance": 2,
     "jumpHeight": 7,
-    "slideTime": 2000,
+    "slideTime": 1000,
     "_id": "dd3joWlLlBVaG/1HI5Aaag"
   },
   {
