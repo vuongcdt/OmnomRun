@@ -102,7 +102,7 @@ export class Player extends Component {
             return;
         }
         if (this._isJumping) {
-
+            this._rgAvatar.applyImpulse(new Vec3(0, -this.jumpHeight * 1.3));
             return;
         }
 
