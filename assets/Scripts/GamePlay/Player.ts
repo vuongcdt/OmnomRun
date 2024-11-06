@@ -26,6 +26,7 @@ export class Player extends Component {
     private _image: Node;
     private _playerPos: Vec3 = new Vec3();
     private _avatarPos: Vec3 = new Vec3();
+    private _timeChangeLane: number = 0.5;
 
     start() {
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
@@ -79,7 +80,7 @@ export class Player extends Component {
         if (this._currentLane >= 0 && this._currentLane <= 2) {
             this._image.setPosition(new Vec3(-2 * direction, 0));
             tween(this._image)
-                .to(0.4, { position: new Vec3(0, 0) }, { easing: 'quadOut' })
+                .to(this._timeChangeLane, { position: new Vec3(0, 0) }, { easing: 'quadOut' })
                 .start();
         }
         this._currentLane = Math.max(0, Math.min(2, this._currentLane));

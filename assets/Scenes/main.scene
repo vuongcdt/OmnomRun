@@ -262,7 +262,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Player",
+    "_name": "PlayerChangeLane",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": {
@@ -311,7 +311,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Avatar",
+    "_name": "PlayerJumpSlide",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": {
@@ -363,7 +363,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Image",
+    "_name": "Avatar",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": {
