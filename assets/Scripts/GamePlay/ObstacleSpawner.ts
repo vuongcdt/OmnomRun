@@ -1,4 +1,4 @@
-import { _decorator, Component, instantiate, Node, Prefab, Vec3 } from 'cc';
+import { _decorator, Component, instantiate, Node, Prefab, randomRangeInt, Vec3 } from 'cc';
 import { Obstacle } from './Obstacle';
 import { eventTarget, OBSTACLE_SPAWNER, PATH_SPAWNER } from './Events';
 const { ccclass, property } = _decorator;
@@ -27,8 +27,9 @@ export class ObstacleSpawner extends Component {
     }
 
     private spawnerObstacle() {
+        const randomX = (1 - randomRangeInt(0, 3)) * 2;
         const obstacle = instantiate(this.obstaclePrefab);
-        obstacle.position = new Vec3(0, 0, this.player.position.z - 25);
+        obstacle.position = new Vec3(randomX, 0, this.player.position.z - 25);
         obstacle.parent = this.node;
     }
 

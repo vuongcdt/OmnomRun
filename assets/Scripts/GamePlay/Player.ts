@@ -79,9 +79,10 @@ export class Player extends Component {
                 .to(this._timeChangeLane, { position: new Vec3(0, 0) }, { easing: 'quadOut' })
                 .start();
         }
+
         this._currentLane = Math.max(0, Math.min(2, this._currentLane));
 
-        const targetPosition = new Vec3(this._currentLane * this.laneDistance - this.laneDistance, this._playerPos.y, this._playerPos.z);
+        const targetPosition = new Vec3((this._currentLane - 1) * this.laneDistance, this._playerPos.y, this._playerPos.z);
         this.node.setPosition(targetPosition);
     }
 
@@ -118,7 +119,11 @@ export class Player extends Component {
         this.node.angle = 0;
         this._playerAction.position.subtract3f(0, 0, this._playerAction.position.z);
 
+        // const posX = (this._currentLane - 1) * this.laneDistance;
+        // console.log(posX);
+        
         const newPlayerPos = new Vec3(0, 0, -this.forwardSpeed * deltaTime);
+        // const newPlayerPos = new Vec3(-this.forwardSpeed * deltaTime, 0, -this.forwardSpeed * deltaTime);
         this.node.translate(newPlayerPos);
     }
 
@@ -137,8 +142,12 @@ export class Player extends Component {
         const contactPoint = new Vec3();
         contacts[0].getWorldPointOnA(contactPoint);
 
-        if (contactPoint.y >= this._playerAction.position.y + this.node.position.y - this._capsuleCollier.cylinderHeight * 0.5) {
-            // if (contactPoint.y >= this._playerAction.position.y - this._capsuleCollier.cylinderHeight * 0.5) {
+        const isCollisionBody = contactPoint.y >= this._playerAction.position.y + this.node.position.y - this._capsuleCollier.cylinderHeight * 0.5;
+        // const isCollisionBody = contactPoint.y >= this._avatar.position.y - this._capsuleCollier.cylinderHeight * 0.5;
+
+        if (isCollisionBody) {
+            console.log(contactPoint);
+
             game.pause();
             console.log('game over');
             return
