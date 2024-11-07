@@ -18,10 +18,10 @@ export class Player extends Component {
     private _currentLane: LaneRoad = LaneRoad.MidlleLane;
     private _isJumping: boolean = false;
     private _isSliding: boolean = false;
-    private _rgAvatar: RigidBody;
-    private _avatar: Node;
+    private _rgPlayerAction: RigidBody;
+    private _playerAction: Node;
     private _capsuleCollier: CapsuleCollider;
-    private _image: Node;
+    private _avatar: Node;
     private _playerPos: Vec3 = new Vec3();
     private _timeChangeLane: number = 0.5;
 
@@ -30,10 +30,10 @@ export class Player extends Component {
         this._capsuleCollier = this.getComponentInChildren(CapsuleCollider);
         this._capsuleCollier.on('onCollisionEnter', this.onCollisionEnter, this);
         this._capsuleCollier.on('onCollisionExit', this.onCollisionExit, this);
-        this._rgAvatar = this.getComponentInChildren(RigidBody);
-        this._avatar = this._rgAvatar.node;
-        this._image = this.getComponentInChildren(MeshRenderer).node;
-        this._rgAvatar.applyImpulse(Vec3.FORWARD);
+        this._rgPlayerAction = this.getComponentInChildren(RigidBody);
+        this._playerAction = this._rgPlayerAction.node;
+        this._avatar = this.getComponentInChildren(MeshRenderer).node;
+        this._rgPlayerAction.applyImpulse(Vec3.FORWARD);
         this._playerPos = this.node.position;
     }
 
@@ -74,8 +74,8 @@ export class Player extends Component {
         this._currentLane += direction;
 
         if (this._currentLane >= LaneRoad.LeftLane && this._currentLane <= LaneRoad.RightLane) {
-            this._image.setPosition(new Vec3(-2 * direction, 0));
-            tween(this._image)
+            this._avatar.setPosition(new Vec3(-2 * direction, 0));
+            tween(this._avatar)
                 .to(this._timeChangeLane, { position: new Vec3(0, 0) }, { easing: 'quadOut' })
                 .start();
         }
@@ -91,7 +91,7 @@ export class Player extends Component {
         }
 
         this._isJumping = true;
-        this._rgAvatar.applyImpulse(new Vec3(0, this.jumpHeight));
+        this._rgPlayerAction.applyImpulse(new Vec3(0, this.jumpHeight));
     }
 
     private slide() {
@@ -100,7 +100,7 @@ export class Player extends Component {
         }
 
         if (this._isJumping) {
-            this._rgAvatar.applyImpulse(new Vec3(0, -this.jumpHeight * 1.3));
+            this._rgPlayerAction.applyImpulse(new Vec3(0, -this.jumpHeight * 1.3));
             return;
         }
 
@@ -114,9 +114,9 @@ export class Player extends Component {
     }
 
     update(deltaTime: number) {
-        this._avatar.angle = 0;
+        this._playerAction.angle = 0;
         this.node.angle = 0;
-        this._avatar.position.subtract3f(0, 0, this._avatar.position.z);
+        this._playerAction.position.subtract3f(0, 0, this._playerAction.position.z);
 
         const newPlayerPos = new Vec3(0, 0, -this.forwardSpeed * deltaTime);
         this.node.translate(newPlayerPos);
@@ -137,7 +137,8 @@ export class Player extends Component {
         const contactPoint = new Vec3();
         contacts[0].getWorldPointOnA(contactPoint);
 
-        if (contactPoint.y >= this._avatar.position.y - this._capsuleCollier.cylinderHeight * 0.5) {
+        if (contactPoint.y >= this._playerAction.position.y + this.node.position.y - this._capsuleCollier.cylinderHeight * 0.5) {
+            // if (contactPoint.y >= this._playerAction.position.y - this._capsuleCollier.cylinderHeight * 0.5) {
             game.pause();
             console.log('game over');
             return
