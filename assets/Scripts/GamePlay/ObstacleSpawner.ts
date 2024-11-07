@@ -17,7 +17,6 @@ export class ObstacleSpawner extends Component {
     private timeSpawn: number = 2;
 
     private _obstacles: Obstacle[] = [];
-    private _count: number = 0;
 
     start() {
         this.spawnerSlopeObstacle(1);
@@ -29,7 +28,6 @@ export class ObstacleSpawner extends Component {
             this.spawnerSlopeObstacle(indexX);
             this.spawnerObstacle((indexX + 1) % 3);
             this.spawnerObstacle((indexX - 1 + 3) % 3);
-            this._count++;
         }, this.timeSpawn * 1000);
     }
 

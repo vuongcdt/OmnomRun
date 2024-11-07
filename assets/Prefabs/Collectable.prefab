@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.Prefab",
-    "_name": "PathSegment",
+    "_name": "Collectable",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_native": "",
@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "PathSegment",
+    "_name": "Collectable",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": null,
@@ -29,15 +29,18 @@
       },
       {
         "__id__": 9
+      },
+      {
+        "__id__": 11
       }
     ],
     "_prefab": {
-      "__id__": 11
+      "__id__": 13
     },
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -1.4901161138336505e-9,
+      "y": 2,
       "z": 0
     },
     "_lrot": {
@@ -49,9 +52,9 @@
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 16,
-      "y": 0.1,
-      "z": 20
+      "x": 1,
+      "y": 1,
+      "z": 1
     },
     "_mobility": 0,
     "_layer": 1073741824,
@@ -89,22 +92,22 @@
     },
     "_lrot": {
       "__type__": "cc.Quat",
-      "x": 0,
+      "x": 0.7071067811865475,
       "y": 0,
       "z": 0,
-      "w": 1
+      "w": 0.7071067811865476
     },
     "_lscale": {
       "__type__": "cc.Vec3",
       "x": 1,
-      "y": 1,
+      "y": 0.1,
       "z": 1
     },
     "_mobility": 0,
     "_layer": 1073741824,
     "_euler": {
       "__type__": "cc.Vec3",
-      "x": 0,
+      "x": 89.99999999999999,
       "y": 0,
       "z": 0
     },
@@ -112,7 +115,7 @@
   },
   {
     "__type__": "cc.MeshRenderer",
-    "_name": "Cube<ModelComponent>",
+    "_name": "Cylinder<ModelComponent>",
     "_objFlags": 0,
     "__editorExtras__": {},
     "node": {
@@ -124,7 +127,7 @@
     },
     "_materials": [
       {
-        "__uuid__": "0f8712df-3839-4c2c-872a-5869a2ed2aa2",
+        "__uuid__": "620b6bf3-0369-4560-837f-2a2c00b73c26",
         "__expectedType__": "cc.Material"
       }
     ],
@@ -133,7 +136,7 @@
       "__id__": 5
     },
     "_mesh": {
-      "__uuid__": "1263d74c-8167-4928-91a6-4e2672411f47@a804a",
+      "__uuid__": "1263d74c-8167-4928-91a6-4e2672411f47@8abdc",
       "__expectedType__": "cc.Mesh"
     },
     "_shadowCastingMode": 0,
@@ -149,7 +152,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "85nh2KhtxNZr3++fmt41mP"
+    "fileId": "25qxgpRutBb7HvzbAtJblY"
   },
   {
     "__type__": "cc.ModelBakeSettings",
@@ -179,10 +182,28 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "07H6XmZCZDlK6crW/tlmtL",
+    "fileId": "71L8xb9PRASZQBFbUJwfxE",
     "instance": null,
     "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
+  },
+  {
+    "__type__": "aa109O32plO3Zm8v8S9AWa+",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "__prefab": {
+      "__id__": 8
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "b7nEKUHAVHRLdDVhwIiVIC"
   },
   {
     "__type__": "cc.RigidBody",
@@ -194,7 +215,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 8
+      "__id__": 10
     },
     "_group": 1,
     "_type": 2,
@@ -219,10 +240,10 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "229BSTaBlIEaR0tMpwBE4A"
+    "fileId": "28Wy4NudlAmafQ+YEozKny"
   },
   {
-    "__type__": "cc.BoxCollider",
+    "__type__": "cc.CylinderCollider",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -231,27 +252,24 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 10
+      "__id__": 12
     },
     "_material": null,
-    "_isTrigger": false,
+    "_isTrigger": true,
     "_center": {
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
       "z": 0
     },
-    "_size": {
-      "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
-      "z": 1
-    },
+    "_radius": 0.5,
+    "_height": 0.2,
+    "_direction": 2,
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "c89oMpGmpIMLTzadUoRxmb"
+    "fileId": "eaGhF8OoBJs6693oR2t0uf"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -261,7 +279,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "73EybGfMxM25QlSIvzwEhv",
+    "fileId": "3bvUdS5vpIvpwi1Ne+ReSJ",
     "instance": null,
     "targetOverrides": null
   }

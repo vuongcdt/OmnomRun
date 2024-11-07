@@ -1,7 +1,6 @@
 import { _decorator, Camera, CapsuleCollider, Component, game, ICollisionEvent, Input, input, KeyCode, MeshRenderer, Node, RigidBody, tween, Vec3 } from 'cc';
 import { LaneRoad } from '../Common/Enums';
 import { eventTarget, PATH_SPAWNER } from './Events';
-import { CameraBlock } from './CameraBlock';
 const { ccclass, property } = _decorator;
 
 @ccclass('Player')
@@ -143,8 +142,6 @@ export class Player extends Component {
         // const isCollisionBody = contactPoint.y >= this._avatar.position.y - this._capsuleCollier.cylinderHeight * 0.5;
 
         if (isCollisionBody) {
-            console.log(contactPoint);
-
             game.pause();
             console.log('game over');
             return

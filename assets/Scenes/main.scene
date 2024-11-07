@@ -33,12 +33,15 @@
       },
       {
         "__id__": 51
+      },
+      {
+        "__id__": 53
       }
     ],
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 53
+      "__id__": 55
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -69,7 +72,7 @@
     },
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 54
+      "__id__": 56
     },
     "_id": "a216dec7-e6a9-4a67-ba3c-c921cbce4b2b"
   },
@@ -1495,6 +1498,72 @@
     "_id": "4dfuogO8lDEIeVzS6jVhLV"
   },
   {
+    "__type__": "cc.Node",
+    "_name": "CollectableSpawner",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "_parent": {
+      "__id__": 1
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 54
+      }
+    ],
+    "_prefab": null,
+    "_lpos": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_lrot": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_lscale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_mobility": 0,
+    "_layer": 1073741824,
+    "_euler": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_id": "6eFuYWDuZP9ZwagubHh9l+"
+  },
+  {
+    "__type__": "db7d45/QEFFOrhZXjZGdRK3",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 53
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "collectable": {
+      "__uuid__": "48967d0c-23f1-47b4-9209-7d00102e3975",
+      "__expectedType__": "cc.Prefab"
+    },
+    "player": {
+      "__id__": 5
+    },
+    "distanceObstacle": 50,
+    "timeSpawn": 2,
+    "_id": "ce18LFqBlAN6qTNbfjF+NP"
+  },
+  {
     "__type__": "cc.PrefabInfo",
     "root": null,
     "asset": null,
@@ -1510,28 +1579,28 @@
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 55
-    },
-    "shadows": {
-      "__id__": 56
-    },
-    "_skybox": {
       "__id__": 57
     },
-    "fog": {
+    "shadows": {
       "__id__": 58
     },
-    "octree": {
+    "_skybox": {
       "__id__": 59
     },
-    "skin": {
+    "fog": {
       "__id__": 60
     },
-    "lightProbeInfo": {
+    "octree": {
       "__id__": 61
     },
-    "postSettings": {
+    "skin": {
       "__id__": 62
+    },
+    "lightProbeInfo": {
+      "__id__": 63
+    },
+    "postSettings": {
+      "__id__": 64
     },
     "bakedWithStationaryMainLight": false,
     "bakedWithHighpLightmap": false
