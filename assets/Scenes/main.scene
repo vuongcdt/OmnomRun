@@ -592,7 +592,7 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "forwardSpeed": 10,
+    "forwardSpeed": 20,
     "laneDistance": 2,
     "jumpHeight": 8,
     "slideTime": 1,
@@ -1490,7 +1490,7 @@
     "player": {
       "__id__": 5
     },
-    "distanceObstacle": 50,
+    "distanceObstacle": 20,
     "timeSpawn": 2,
     "_id": "4dfuogO8lDEIeVzS6jVhLV"
   },

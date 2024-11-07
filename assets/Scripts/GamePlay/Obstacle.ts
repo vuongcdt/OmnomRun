@@ -3,6 +3,8 @@ const { ccclass, property } = _decorator;
 
 @ccclass('Obstacle')
 export class Obstacle extends Component {
+    private _type: number = 0;
+
     start() {
 
     }
@@ -11,4 +13,5 @@ export class Obstacle extends Component {
         
     }
 }
-
+
+
