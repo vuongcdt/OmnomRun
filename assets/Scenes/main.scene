@@ -342,7 +342,7 @@
     "__prefab": null,
     "_materials": [
       {
-        "__uuid__": "620b6bf3-0369-4560-837f-2a2c00b73c26",
+        "__uuid__": "b2540c86-ec78-4698-932a-f03db150d3ea",
         "__expectedType__": "cc.Material"
       }
     ],
@@ -542,7 +542,7 @@
     "__prefab": null,
     "_materials": [
       {
-        "__uuid__": "0f8712df-3839-4c2c-872a-5869a2ed2aa2",
+        "__uuid__": "d3c7820c-2a98-4429-8bc7-b8453bc9ac41",
         "__expectedType__": "cc.Material"
       }
     ],
