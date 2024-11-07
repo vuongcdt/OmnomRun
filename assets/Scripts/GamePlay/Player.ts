@@ -25,9 +25,7 @@ export class Player extends Component {
     private _capsuleCollier: CapsuleCollider;
     private _image: Node;
     private _playerPos: Vec3 = new Vec3();
-    private _avatarPos: Vec3 = new Vec3();
     private _timeChangeLane: number = 0.5;
-    private _cameraNode: Node;
 
     start() {
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
@@ -39,7 +37,6 @@ export class Player extends Component {
         this._image = this.getComponentInChildren(MeshRenderer).node;
         this._rgAvatar.applyImpulse(Vec3.FORWARD);
         this._playerPos = this.node.position;
-        this._cameraNode = this.getComponentInChildren(CameraBlock).node;
     }
 
     onDestroy() {
@@ -120,12 +117,11 @@ export class Player extends Component {
 
     update(deltaTime: number) {
         this._avatar.angle = 0;
-        this._cameraNode.angle = 0;
         this.node.angle = 0;
+        this._avatar.position.subtract3f(0, 0, this._avatar.position.z);
 
         const newPlayerPos = new Vec3(0, 0, -this.forwardSpeed * deltaTime);
         this.node.translate(newPlayerPos);
-        this._avatarPos = this._avatar.position;
     }
 
 
