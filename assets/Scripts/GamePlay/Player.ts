@@ -1,6 +1,7 @@
 import { _decorator, Camera, CapsuleCollider, Component, game, ICollisionEvent, Input, input, KeyCode, MeshRenderer, Node, RigidBody, tween, Vec3 } from 'cc';
 import { LaneRoad } from '../Common/Enums';
 import { eventTarget, PATH_SPAWNER } from './Events';
+import { CameraBlock } from './CameraBlock';
 const { ccclass, property } = _decorator;
 
 @ccclass('Player')
@@ -26,6 +27,7 @@ export class Player extends Component {
     private _playerPos: Vec3 = new Vec3();
     private _avatarPos: Vec3 = new Vec3();
     private _timeChangeLane: number = 0.5;
+    private _cameraNode: Node;
 
     start() {
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
@@ -37,6 +39,7 @@ export class Player extends Component {
         this._image = this.getComponentInChildren(MeshRenderer).node;
         this._rgAvatar.applyImpulse(Vec3.FORWARD);
         this._playerPos = this.node.position;
+        this._cameraNode = this.getComponentInChildren(CameraBlock).node;
     }
 
     onDestroy() {
@@ -117,6 +120,7 @@ export class Player extends Component {
 
     update(deltaTime: number) {
         this._avatar.angle = 0;
+        this._cameraNode.angle = 0;
         const newPlayerPos = new Vec3(0, 0, -this.forwardSpeed * deltaTime);
         this.node.translate(newPlayerPos);
         this._avatarPos = this._avatar.position;
