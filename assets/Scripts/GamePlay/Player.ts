@@ -22,7 +22,6 @@ export class Player extends Component {
     private _rgAvatar: RigidBody;
     private _avatar: Node;
     private _capsuleCollier: CapsuleCollider;
-    private _offsetCameraPos: Vec3 = new Vec3();
     private _image: Node;
     private _playerPos: Vec3 = new Vec3();
     private _avatarPos: Vec3 = new Vec3();
@@ -37,7 +36,6 @@ export class Player extends Component {
         this._avatar = this._rgAvatar.node;
         this._image = this.getComponentInChildren(MeshRenderer).node;
         this._rgAvatar.applyImpulse(Vec3.FORWARD);
-        this._offsetCameraPos = this.camera.node.position.clone();
         this._playerPos = this.node.position;
     }
 
@@ -122,18 +120,8 @@ export class Player extends Component {
         const newPlayerPos = new Vec3(0, 0, -this.forwardSpeed * deltaTime);
         this.node.translate(newPlayerPos);
         this._avatarPos = this._avatar.position;
-
-        this.setCamera();
     }
 
-    private setCamera() {
-        // this._avatar.setPosition(new Vec3(this._avatarPos.x, this._avatarPos.y, this._playerPos.z));
-        // const newCamPos = new Vec3(this._playerPos.x + this._image.position.x, this._avatarPos.y + this._offsetCameraPos.y, this._playerPos.z + this._offsetCameraPos.z);
-        const newCamPos = this._isJumping
-            ? new Vec3(this._playerPos.x + this._image.position.x, this._playerPos.y + this._avatarPos.y + this._offsetCameraPos.y, this._playerPos.z + this._offsetCameraPos.z)
-            : new Vec3(this._playerPos.x, this._avatarPos.y + this._offsetCameraPos.y, this._playerPos.z + this._avatarPos.z + this._offsetCameraPos.z);
-        this.camera.node.setPosition(newCamPos);
-    }
 
     onCollisionExit(event: ICollisionEvent) {
         eventTarget.emit(PATH_SPAWNER, this.node.position.z);
