@@ -1,4 +1,4 @@
-import { _decorator, Component, instantiate, MeshRenderer, Node, Prefab } from 'cc';
+import { _decorator, Component, instantiate,  Node, Prefab } from 'cc';
 import { eventTarget, PATH_SPAWNER } from './Events';
 const { ccclass, property } = _decorator;
 

@@ -36,12 +36,15 @@
       },
       {
         "__id__": 53
+      },
+      {
+        "__id__": 55
       }
     ],
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 55
+      "__id__": 56
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -72,7 +75,7 @@
     },
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 56
+      "__id__": 57
     },
     "_id": "a216dec7-e6a9-4a67-ba3c-c921cbce4b2b"
   },
@@ -596,7 +599,7 @@
     "_enabled": true,
     "__prefab": null,
     "forwardSpeed": 20,
-    "laneDistance": 2,
+    "laneDistance": 3,
     "jumpHeight": 8,
     "slideTime": 1,
     "_id": "dd3joWlLlBVaG/1HI5Aaag"
@@ -1117,7 +1120,7 @@
         "__id__": 45
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 48
@@ -1132,7 +1135,7 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 960.0000000000001,
+      "x": 960,
       "y": 540,
       "z": 0
     },
@@ -1218,7 +1221,7 @@
     "_priority": 1073741824,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 658.2368655387356,
+    "_orthoHeight": 683.8112858464385,
     "_near": 1,
     "_far": 2000,
     "_color": {
@@ -1371,7 +1374,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1920.0000000000002,
+      "width": 1920,
       "height": 1080
     },
     "_anchorPoint": {
@@ -1482,10 +1485,6 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "slopeObstacle": {
-      "__uuid__": "ae3b86db-5f50-4049-a533-9fc502ab4724",
-      "__expectedType__": "cc.Prefab"
-    },
     "obstacle": {
       "__uuid__": "11118303-6e18-44ab-8adc-acb1d3d3a865",
       "__expectedType__": "cc.Prefab"
@@ -1493,8 +1492,30 @@
     "player": {
       "__id__": 5
     },
-    "distanceObstacle": 20,
+    "distanceObstacle": 100,
     "timeSpawn": 2,
+    "avatarObstacles": [
+      {
+        "__uuid__": "e945951e-b618-4beb-8b9a-ca112f3f2212",
+        "__expectedType__": "cc.Prefab"
+      },
+      {
+        "__uuid__": "803ef688-d061-4797-a8cf-2462708134b3",
+        "__expectedType__": "cc.Prefab"
+      },
+      {
+        "__uuid__": "114ba58f-78b4-40e7-9fca-0eb663437f15",
+        "__expectedType__": "cc.Prefab"
+      },
+      {
+        "__uuid__": "ae3b86db-5f50-4049-a533-9fc502ab4724",
+        "__expectedType__": "cc.Prefab"
+      },
+      {
+        "__uuid__": "dcbddeae-7479-441b-b2eb-b8b14294cfba",
+        "__expectedType__": "cc.Prefab"
+      }
+    ],
     "_id": "4dfuogO8lDEIeVzS6jVhLV"
   },
   {
@@ -1564,6 +1585,47 @@
     "_id": "ce18LFqBlAN6qTNbfjF+NP"
   },
   {
+    "__type__": "cc.Node",
+    "_name": "UI",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "_parent": {
+      "__id__": 1
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [],
+    "_prefab": null,
+    "_lpos": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_lrot": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_lscale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_mobility": 0,
+    "_layer": 1073741824,
+    "_euler": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_id": "37krW8ES5FD6pGXBaqmOw+"
+  },
+  {
     "__type__": "cc.PrefabInfo",
     "root": null,
     "asset": null,
@@ -1579,28 +1641,28 @@
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 57
-    },
-    "shadows": {
       "__id__": 58
     },
-    "_skybox": {
+    "shadows": {
       "__id__": 59
     },
-    "fog": {
+    "_skybox": {
       "__id__": 60
     },
-    "octree": {
+    "fog": {
       "__id__": 61
     },
-    "skin": {
+    "octree": {
       "__id__": 62
     },
-    "lightProbeInfo": {
+    "skin": {
       "__id__": 63
     },
-    "postSettings": {
+    "lightProbeInfo": {
       "__id__": 64
+    },
+    "postSettings": {
+      "__id__": 65
     },
     "bakedWithStationaryMainLight": false,
     "bakedWithHighpLightmap": false

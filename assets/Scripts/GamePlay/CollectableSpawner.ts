@@ -23,7 +23,7 @@ export class CollectableSpawner extends Component {
     }
 
     private spawnerSlopeObstacle(index: number) {
-        const posX = (1 - index) * 2;
+        const posX = (1 - index) * 3;
         for (let i = 0; i < 5; i++) {
             const slopeObstacle = instantiate(this.collectable);
             slopeObstacle.position = new Vec3(posX, 0, this.player.position.z - this.distanceObstacle + i * 3);

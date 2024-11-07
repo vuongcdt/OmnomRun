@@ -1,4 +1,4 @@
-import { _decorator, Camera, CapsuleCollider, Component, game, ICollisionEvent, Input, input, KeyCode, MeshRenderer, Node, RigidBody, tween, Vec3 } from 'cc';
+import { _decorator, CapsuleCollider, Component, game, ICollisionEvent, Input, input, KeyCode, Node, RigidBody, Vec3 } from 'cc';
 import { LaneRoad } from '../Common/Enums';
 import { eventTarget, PATH_SPAWNER } from './Events';
 const { ccclass, property } = _decorator;
@@ -6,24 +6,21 @@ const { ccclass, property } = _decorator;
 @ccclass('Player')
 export class Player extends Component {
     @property
-    private forwardSpeed: number = 1;
+    private forwardSpeed: number = 10;
     @property
-    private laneDistance: number = 1;
+    private laneDistance: number = 2;
     @property
     private jumpHeight: number = 10;
     @property
     private slideTime: number = 1;
 
     private _targetLane: LaneRoad = LaneRoad.MidlleLane;
-    private _currentLane: LaneRoad = LaneRoad.MidlleLane;
     private _isJumping: boolean = false;
     private _isSliding: boolean = false;
     private _rgPlayerAction: RigidBody;
     private _playerAction: Node;
     private _capsuleCollier: CapsuleCollider;
-    private _avatar: Node;
     private _playerPos: Vec3 = new Vec3();
-    private _timeChangeLane: number = 0.5;
 
     start() {
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
@@ -32,7 +29,6 @@ export class Player extends Component {
         this._capsuleCollier.on('onCollisionExit', this.onCollisionExit, this);
         this._rgPlayerAction = this.getComponentInChildren(RigidBody);
         this._playerAction = this._rgPlayerAction.node;
-        this._avatar = this.getComponentInChildren(MeshRenderer).node;
         this._rgPlayerAction.applyImpulse(Vec3.FORWARD);
         this._playerPos = this.node.position;
     }
@@ -123,7 +119,6 @@ export class Player extends Component {
         this.node.translate(newPlayerPos);
     }
 
-
     onCollisionExit(event: ICollisionEvent) {
         eventTarget.emit(PATH_SPAWNER, this.node.position.z);
     }
@@ -139,7 +134,6 @@ export class Player extends Component {
         contacts[0].getWorldPointOnA(contactPoint);
 
         const isCollisionBody = contactPoint.y >= this._playerAction.position.y + this.node.position.y - this._capsuleCollier.cylinderHeight * 0.5;
-        // const isCollisionBody = contactPoint.y >= this._avatar.position.y - this._capsuleCollier.cylinderHeight * 0.5;
 
         if (isCollisionBody) {
             game.pause();

@@ -1,16 +1,18 @@
-import { _decorator, Component, Node } from 'cc';
+import { _decorator, ccenum, Component, Enum, Node } from 'cc';
+import { ObstacleType } from '../Common/Enums';
 const { ccclass, property } = _decorator;
 
 @ccclass('Obstacle')
 export class Obstacle extends Component {
-    private _type: number = 0;
+    @property({ type: Enum(ObstacleType) })
+    private type: ObstacleType;
 
     start() {
 
     }
 
     update(deltaTime: number) {
-        
+
     }
 }
 

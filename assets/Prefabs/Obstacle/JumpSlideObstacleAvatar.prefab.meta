@@ -2,12 +2,12 @@
   "ver": "1.1.50",
   "importer": "prefab",
   "imported": true,
-  "uuid": "ae3b86db-5f50-4049-a533-9fc502ab4724",
+  "uuid": "dcbddeae-7479-441b-b2eb-b8b14294cfba",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "SlopeObstacle"
+    "syncNodeName": "JumpSlideObstacleAvatar"
   }
 }
