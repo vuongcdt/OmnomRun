@@ -122,7 +122,16 @@ export class Player extends Component {
         const newPlayerPos = new Vec3(0, 0, -this.forwardSpeed * deltaTime);
         this.node.translate(newPlayerPos);
         this._avatarPos = this._avatar.position;
-        const newCamPos = new Vec3(this._playerPos.x + this._image.position.x, this._avatarPos.y + this._offsetCameraPos.y, this._playerPos.z + this._offsetCameraPos.z);
+
+        this.setCamera();
+    }
+
+    private setCamera() {
+        // this._avatar.setPosition(new Vec3(this._avatarPos.x, this._avatarPos.y, this._playerPos.z));
+        // const newCamPos = new Vec3(this._playerPos.x + this._image.position.x, this._avatarPos.y + this._offsetCameraPos.y, this._playerPos.z + this._offsetCameraPos.z);
+        const newCamPos = this._isJumping
+            ? new Vec3(this._playerPos.x + this._image.position.x, this._playerPos.y + this._avatarPos.y + this._offsetCameraPos.y, this._playerPos.z + this._offsetCameraPos.z)
+            : new Vec3(this._playerPos.x, this._avatarPos.y + this._offsetCameraPos.y, this._playerPos.z + this._avatarPos.z + this._offsetCameraPos.z);
         this.camera.node.setPosition(newCamPos);
     }
 

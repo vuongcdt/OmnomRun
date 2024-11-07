@@ -1,4 +1,4 @@
-import { _decorator, Component, instantiate, Node, Prefab } from 'cc';
+import { _decorator, Component, instantiate, MeshRenderer, Node, Prefab } from 'cc';
 import { eventTarget, PATH_SPAWNER } from './Events';
 const { ccclass, property } = _decorator;
 
@@ -18,6 +18,7 @@ export class PathSpawner extends Component {
 
         for (let i = 0; i < this.numberOfSegments; i++) {
             const segment = this.spawnPathSegment(i * this.segmentLength);
+            // segment.getComponent(MeshRenderer);
             this._pathSegments.push(segment);
         }
     }
