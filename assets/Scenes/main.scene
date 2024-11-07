@@ -537,11 +537,10 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "camera": null,
-    "forwardSpeed": 10,
+    "forwardSpeed": 7,
     "laneDistance": 2,
     "jumpHeight": 7,
-    "slideTime": 1000,
+    "slideTime": 1,
     "_id": "dd3joWlLlBVaG/1HI5Aaag"
   },
   {
@@ -552,7 +551,7 @@
     "node": {
       "__id__": 5
     },
-    "_enabled": false,
+    "_enabled": true,
     "__prefab": null,
     "_materials": [
       {

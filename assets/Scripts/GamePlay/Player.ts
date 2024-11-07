@@ -6,8 +6,6 @@ const { ccclass, property } = _decorator;
 
 @ccclass('Player')
 export class Player extends Component {
-    @property(Camera)
-    private camera: Camera;
     @property
     private forwardSpeed: number = 1;
     @property
@@ -15,7 +13,7 @@ export class Player extends Component {
     @property
     private jumpHeight: number = 10;
     @property
-    private slideTime: number = 1000;
+    private slideTime: number = 1;
 
     private _currentLane: LaneRoad = LaneRoad.MidlleLane;
     private _isJumping: boolean = false;
@@ -112,7 +110,7 @@ export class Player extends Component {
         setTimeout(() => {
             this._capsuleCollier.cylinderHeight = 1;
             this._isSliding = false;
-        }, this.slideTime);
+        }, this.slideTime * 1000);
     }
 
     update(deltaTime: number) {
@@ -139,11 +137,11 @@ export class Player extends Component {
         const contactPoint = new Vec3();
         contacts[0].getWorldPointOnA(contactPoint);
 
-        // if (contactPoint.y >= this._avatarPos.y - this._capsuleCollier.cylinderHeight * 0.5) {
-        //     game.pause();
-        //     console.log('game over');
-        //     return
-        // }
+        if (contactPoint.y >= this._avatar.position.y - this._capsuleCollier.cylinderHeight * 0.5) {
+            game.pause();
+            console.log('game over');
+            return
+        }
 
         this._isJumping = false;
     }
