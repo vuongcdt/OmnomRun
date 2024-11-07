@@ -15,6 +15,7 @@ export class Player extends Component {
     @property
     private slideTime: number = 1;
 
+    private _targetLane: LaneRoad = LaneRoad.MidlleLane;
     private _currentLane: LaneRoad = LaneRoad.MidlleLane;
     private _isJumping: boolean = false;
     private _isSliding: boolean = false;
@@ -71,19 +72,19 @@ export class Player extends Component {
     }
 
     private changeLane(direction: number) {
-        this._currentLane += direction;
+        this._targetLane += direction;
 
-        if (this._currentLane >= LaneRoad.LeftLane && this._currentLane <= LaneRoad.RightLane) {
-            this._avatar.setPosition(new Vec3(-2 * direction, 0));
-            tween(this._avatar)
-                .to(this._timeChangeLane, { position: new Vec3(0, 0) }, { easing: 'quadOut' })
-                .start();
-        }
+        // if (this._currentLane >= LaneRoad.LeftLane && this._currentLane <= LaneRoad.RightLane) {
+        //     this._avatar.setPosition(new Vec3(-2 * direction, 0));
+        //     tween(this._avatar)
+        //         .to(this._timeChangeLane, { position: new Vec3(0, 0) }, { easing: 'quadOut' })
+        //         .start();
+        // }
 
-        this._currentLane = Math.max(0, Math.min(2, this._currentLane));
+        this._targetLane = Math.max(0, Math.min(2, this._targetLane));
 
-        const targetPosition = new Vec3((this._currentLane - 1) * this.laneDistance, this._playerPos.y, this._playerPos.z);
-        this.node.setPosition(targetPosition);
+        // const targetPosition = new Vec3((this._currentLane - 1) * this.laneDistance, this._playerPos.y, this._playerPos.z);
+        // this.node.setPosition(targetPosition);
     }
 
     private jump() {
@@ -119,11 +120,17 @@ export class Player extends Component {
         this.node.angle = 0;
         this._playerAction.position.subtract3f(0, 0, this._playerAction.position.z);
 
-        // const posX = (this._currentLane - 1) * this.laneDistance;
-        // console.log(posX);
-        
-        const newPlayerPos = new Vec3(0, 0, -this.forwardSpeed * deltaTime);
-        // const newPlayerPos = new Vec3(-this.forwardSpeed * deltaTime, 0, -this.forwardSpeed * deltaTime);
+        const posX = (this._targetLane - 1) * this.laneDistance;
+        const targetPos = new Vec3(posX, this._playerPos.y, this._playerPos.z);
+        const distance = Vec3.distance(targetPos, this._playerPos);
+
+        let stepX = targetPos.subtract(this._playerPos).x * deltaTime * 10;
+
+        if (distance < 0.1) {
+            stepX = 0;
+        }
+
+        const newPlayerPos = new Vec3(stepX, 0, -this.forwardSpeed * deltaTime);
         this.node.translate(newPlayerPos);
     }
 

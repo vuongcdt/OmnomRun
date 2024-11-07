@@ -592,7 +592,7 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "forwardSpeed": 7,
+    "forwardSpeed": 10,
     "laneDistance": 2,
     "jumpHeight": 7,
     "slideTime": 1,
