@@ -1,45 +1,48 @@
 import { _decorator, Component, instantiate, Node, Prefab, randomRangeInt, Vec3 } from 'cc';
-import { Obstacle } from './Obstacle';
-import { eventTarget, OBSTACLE_SPAWNER, PATH_SPAWNER } from './Events';
+import { SlopeObstacle } from './SlopeObstacle';
 const { ccclass, property } = _decorator;
 
 @ccclass('ObstacleSpawner')
 export class ObstacleSpawner extends Component {
     @property(Prefab)
-    private obstaclePrefab: Prefab;
+    private slopeObstacle: Prefab;
+    @property(Prefab)
+    private obstacle: Prefab;
     @property(Node)
     private player: Node;
+    @property
+    private distanceObstacle: number = 50;
+    @property
+    private timeSpawn: number = 2;
 
-    private _obstacles: Obstacle[] = [];
+    private _slopeObstacles: SlopeObstacle[] = [];
     private _type: number = 0;
     private _count: number = 0;
 
     start() {
-        // eventTarget.on(OBSTACLE_SPAWNER, e => this.spawnerObstacle(e), this);
+        this.spawnerSlopeObstacle();
         this.spawnerObstacle();
+
         let time = setInterval(() => {
+            this.spawnerSlopeObstacle();
             this.spawnerObstacle();
             this._count++;
-            // if (this._count > 10) {
-            //     clearInterval(time);
-            // }
-        }, 2000);
+        }, this.timeSpawn * 1000);
+    }
+
+    private spawnerSlopeObstacle() {
+        const randomX = (1 - randomRangeInt(0, 3)) * 2;
+        const slopeObstacle = instantiate(this.slopeObstacle);
+        slopeObstacle.position = new Vec3(randomX, 0, this.player.position.z - this.distanceObstacle);
+        slopeObstacle.parent = this.node;
     }
 
     private spawnerObstacle() {
         const randomX = (1 - randomRangeInt(0, 3)) * 2;
-        const obstacle = instantiate(this.obstaclePrefab);
-        obstacle.position = new Vec3(randomX, 0, this.player.position.z - 25);
+        const obstacle = instantiate(this.obstacle);
+        obstacle.position = new Vec3(randomX, 1, this.player.position.z - this.distanceObstacle);
         obstacle.parent = this.node;
     }
-
-    // private spawnerObstacle(posZPlayer: number) {
-    //     console.log('init');
-
-    //     const obstacle = instantiate(this.obstaclePrefab);
-    //     obstacle.position = new Vec3(0, 0, posZPlayer - 25);
-    //     obstacle.parent = this.node;
-    // }
 }
 
 

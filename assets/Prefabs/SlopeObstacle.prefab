@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.Prefab",
-    "_name": "Obstacle",
+    "_name": "SlopeObstacle",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_native": "",
@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Obstacle",
+    "_name": "SlopeObstacle",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": null,
@@ -40,26 +40,26 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 0
+      "z": -10
     },
     "_lrot": {
       "__type__": "cc.Quat",
-      "x": 0,
+      "x": 0.30070576071739197,
       "y": 0,
       "z": 0,
-      "w": 1
+      "w": 0.9537169933319092
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 1.6,
-      "y": 1.6,
-      "z": 1
+      "x": 0.2,
+      "y": 1,
+      "z": 0.4
     },
     "_mobility": 0,
     "_layer": 1073741824,
     "_euler": {
       "__type__": "cc.Vec3",
-      "x": 0,
+      "x": 34.9999961964532,
       "y": 0,
       "z": 0
     },
@@ -67,7 +67,7 @@
   },
   {
     "__type__": "cc.MeshRenderer",
-    "_name": "Cube<ModelComponent>",
+    "_name": "Plane<ModelComponent>",
     "_objFlags": 0,
     "__editorExtras__": {},
     "node": {
@@ -79,7 +79,7 @@
     },
     "_materials": [
       {
-        "__uuid__": "620b6bf3-0369-4560-837f-2a2c00b73c26",
+        "__uuid__": "2d67ff16-dd32-44b0-b455-d89c2c034d17",
         "__expectedType__": "cc.Material"
       }
     ],
@@ -88,7 +88,7 @@
       "__id__": 4
     },
     "_mesh": {
-      "__uuid__": "1263d74c-8167-4928-91a6-4e2672411f47@a804a",
+      "__uuid__": "1263d74c-8167-4928-91a6-4e2672411f47@2e76e",
       "__expectedType__": "cc.Mesh"
     },
     "_shadowCastingMode": 0,
@@ -104,7 +104,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "e3T1jY/2pM84PJt98l5dB1"
+    "fileId": "7eM5irc35N1Yy9RfgVPS3G"
   },
   {
     "__type__": "cc.ModelBakeSettings",
@@ -127,7 +127,7 @@
     "_bakeToReflectionProbe": true
   },
   {
-    "__type__": "dba18H1QdxK4p+FSXatGg1s",
+    "__type__": "dc2e1U69GdMf49pECbAb+u9",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -142,7 +142,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "d9EQP8xWhNxo+avSZNvbVO"
+    "fileId": "845x73GQVEJZq3hrKway83"
   },
   {
     "__type__": "cc.RigidBody",
@@ -156,7 +156,7 @@
     "__prefab": {
       "__id__": 8
     },
-    "_group": 8,
+    "_group": 1,
     "_type": 2,
     "_mass": 1,
     "_allowSleep": true,
@@ -179,7 +179,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "3a9qWgYsZGkKPpFIBMKyyZ"
+    "fileId": "76Q1tkLp1JSJisOIsUIbj3"
   },
   {
     "__type__": "cc.BoxCollider",
@@ -203,15 +203,15 @@
     },
     "_size": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
-      "z": 1
+      "x": 10,
+      "y": 0.001,
+      "z": 10
     },
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "11mM4MeZtIi4xlyMBWcuDm"
+    "fileId": "e3HLlAZtdGa7i9h1oJiobA"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -221,7 +221,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "b8JF4bAY9AcYqCObin9YZ5",
+    "fileId": "a58FFPfW1ELYLuEAeJIMzR",
     "instance": null,
     "targetOverrides": null
   }

@@ -2,12 +2,12 @@
   "ver": "1.1.50",
   "importer": "prefab",
   "imported": true,
-  "uuid": "11118303-6e18-44ab-8adc-acb1d3d3a865",
+  "uuid": "ae3b86db-5f50-4049-a533-9fc502ab4724",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "Obstacle"
+    "syncNodeName": "SlopeObstacle"
   }
 }

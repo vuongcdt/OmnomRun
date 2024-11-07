@@ -74,17 +74,7 @@ export class Player extends Component {
     private changeLane(direction: number) {
         this._targetLane += direction;
 
-        // if (this._currentLane >= LaneRoad.LeftLane && this._currentLane <= LaneRoad.RightLane) {
-        //     this._avatar.setPosition(new Vec3(-2 * direction, 0));
-        //     tween(this._avatar)
-        //         .to(this._timeChangeLane, { position: new Vec3(0, 0) }, { easing: 'quadOut' })
-        //         .start();
-        // }
-
         this._targetLane = Math.max(0, Math.min(2, this._targetLane));
-
-        // const targetPosition = new Vec3((this._currentLane - 1) * this.laneDistance, this._playerPos.y, this._playerPos.z);
-        // this.node.setPosition(targetPosition);
     }
 
     private jump() {
