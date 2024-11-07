@@ -20,15 +20,13 @@ export class ObstacleSpawner extends Component {
         let time = setInterval(() => {
             this.spawnerObstacle();
             this._count++;
-            if (this._count > 10) {
-                clearInterval(time);
-            }
+            // if (this._count > 10) {
+            //     clearInterval(time);
+            // }
         }, 2000);
     }
 
     private spawnerObstacle() {
-        console.log('init');
-
         const obstacle = instantiate(this.obstaclePrefab);
         obstacle.position = new Vec3(0, 0, this.player.position.z - 25);
         obstacle.parent = this.node;

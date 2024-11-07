@@ -121,6 +121,8 @@ export class Player extends Component {
     update(deltaTime: number) {
         this._avatar.angle = 0;
         this._cameraNode.angle = 0;
+        this.node.angle = 0;
+
         const newPlayerPos = new Vec3(0, 0, -this.forwardSpeed * deltaTime);
         this.node.translate(newPlayerPos);
         this._avatarPos = this._avatar.position;
@@ -141,11 +143,11 @@ export class Player extends Component {
         const contactPoint = new Vec3();
         contacts[0].getWorldPointOnA(contactPoint);
 
-        if (contactPoint.y >= this._avatarPos.y - this._capsuleCollier.cylinderHeight * 0.5) {
-            game.pause();
-            console.log('game over');
-            return
-        }
+        // if (contactPoint.y >= this._avatarPos.y - this._capsuleCollier.cylinderHeight * 0.5) {
+        //     game.pause();
+        //     console.log('game over');
+        //     return
+        // }
 
         this._isJumping = false;
     }
