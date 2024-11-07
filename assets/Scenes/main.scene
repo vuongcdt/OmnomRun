@@ -942,12 +942,12 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "roadPrefab": {
+    "pathPrefab": {
       "__uuid__": "b6b2811f-4a8f-45f3-b7d6-77947765991c",
       "__expectedType__": "cc.Prefab"
     },
     "segmentLength": 20,
-    "numberOfSegments": 5,
+    "numberOfSegments": 6,
     "_id": "86+sGiNStETahPgKdw59FD"
   },
   {

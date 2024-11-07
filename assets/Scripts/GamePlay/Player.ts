@@ -77,7 +77,7 @@ export class Player extends Component {
     private changeLane(direction: number) {
         this._currentLane += direction;
 
-        if (this._currentLane >= 0 && this._currentLane <= 2) {
+        if (this._currentLane >= LaneRoad.LeftLane && this._currentLane <= LaneRoad.RightLane) {
             this._image.setPosition(new Vec3(-2 * direction, 0));
             tween(this._image)
                 .to(this._timeChangeLane, { position: new Vec3(0, 0) }, { easing: 'quadOut' })
@@ -102,6 +102,7 @@ export class Player extends Component {
         if (this._isSliding) {
             return;
         }
+
         if (this._isJumping) {
             this._rgAvatar.applyImpulse(new Vec3(0, -this.jumpHeight * 1.3));
             return;
