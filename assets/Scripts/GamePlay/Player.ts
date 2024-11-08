@@ -1,6 +1,6 @@
 import { _decorator, CapsuleCollider, Component, game, ICollisionEvent, Input, input, ITriggerEvent, KeyCode, math, Node, Quat, RigidBody, v3, Vec3 } from 'cc';
 import { LaneRoad } from '../Common/Enums';
-import { eventTarget, PATH_SPAWNER } from './Events';
+import { eventTarget, PATH_SPAWNER, SET_REDIRECT } from './Events';
 import { Collectable } from './Collectable';
 import { angleToQuaternion, getDirX, rotatePointAroundCenter } from '../Common/Utils';
 const { ccclass, property } = _decorator;
@@ -26,17 +26,21 @@ export class Player extends Component {
     private _capsuleCollier: CapsuleCollider;
     private _playerPos: Vec3 = new Vec3();
     private _distance: number = -50;
-    private _point: Vec3 = new Vec3(0, 0, this._distance);
-    private _angle: number = 0;
-    private _isRedirect: boolean = true;
+    private _pointRedirect: Vec3 = new Vec3(0, 0, this._distance);
+    private _angleRedirect: number = 0;
+    private _isRedirect: boolean = false;
 
     start() {
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
         this._capsuleCollier = this.getComponentInChildren(CapsuleCollider);
+        
         this._capsuleCollier.on('onCollisionEnter', this.onCollisionEnter, this);
         this._capsuleCollier.on('onCollisionExit', this.onCollisionExit, this);
+        eventTarget.on(SET_REDIRECT, e => this._isRedirect = true);
+
         this._rgPlayerAction = this.getComponentInChildren(RigidBody);
         this._playerAction = this._rgPlayerAction.node;
+
         this._rgPlayerAction.applyImpulse(Vec3.FORWARD);
         this._playerPos = this.node.position;
     }
@@ -47,33 +51,33 @@ export class Player extends Component {
 
 
     private redirect() {
-        this._angle += this.speedRedirect;
+        this._angleRedirect += this.speedRedirect;
         if (this._targetLane == LaneRoad.MidlleLane) {
             console.log('game over 2');
             game.pause()
             return;
         }
 
-        if (this._angle > 90) {
+        if (this._angleRedirect > 90) {
             console.log('redirect done');
-            this._angle = 0;
+            this._angleRedirect = 0;
             this._isRedirect = false;
             game.pause();
             return;
         }
 
 
-        const center: Vec3 = new Vec3((1 - this._targetLane) * -10, 0, this._distance);
+        const centerRedirect: Vec3 = new Vec3((1 - this._targetLane) * -10, 0, this._distance);
 
-        const rotatedPoint = rotatePointAroundCenter(this._point, center, this._angle);
+        const rotatedPoint = rotatePointAroundCenter(this._pointRedirect, centerRedirect, this._angleRedirect);
         this.node.position = rotatedPoint;
-        const dir = getDirX(this._point, center);
+        const dir = getDirX(this._pointRedirect, centerRedirect);
 
         this.node.rotate(angleToQuaternion(dir * this.speedRedirect, Vec3.UNIT_Y));
     }
 
     update(deltaTime: number) {
-        if (this._playerPos.z < this._distance && this._isRedirect && this._angle <= 90) {
+        if (this._playerPos.z < this._distance && this._isRedirect && this._angleRedirect <= 90) {
             this.redirect();
             return;
         }

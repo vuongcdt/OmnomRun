@@ -1,5 +1,6 @@
-import { _decorator, Component, instantiate,  Node, Prefab } from 'cc';
+import { _decorator, Component, instantiate, Node, Prefab, randomRangeInt } from 'cc';
 import { eventTarget, PATH_SPAWNER } from './Events';
+import { Path } from './Path';
 const { ccclass, property } = _decorator;
 
 @ccclass('PathSpawner')
@@ -12,13 +13,17 @@ export class PathSpawner extends Component {
     private numberOfSegments: number = 10;
 
     private _pathSegments: Node[] = [];
+    private _paths: Path[] = [];
 
     start() {
         eventTarget.on(PATH_SPAWNER, e => this.spawnNewPath(e), this);
 
         for (let i = 0; i < this.numberOfSegments; i++) {
             const segment = this.spawnPathSegment(i * this.segmentLength);
+            const path = segment.getComponent(Path);
+            path.setRedirect(false);
             this._pathSegments.push(segment);
+            this._paths.push(path);
         }
     }
 
@@ -30,9 +35,11 @@ export class PathSpawner extends Component {
     }
 
     private spawnNewPath(playerZ: number) {
-        this._pathSegments.forEach(road => {
-            if (road.position.z > playerZ + this.segmentLength) {
-                road.setPosition(0, 0, road.position.z - (this.numberOfSegments - 1) * this.segmentLength);
+        this._pathSegments.forEach((path, index) => {
+            if (path.position.z > playerZ + this.segmentLength) {
+                path.setPosition(0, 0, path.position.z - (this.numberOfSegments - 1) * this.segmentLength);
+                const random = randomRangeInt(0, 3);
+                this._paths[index].setRedirect(random == 0);
             }
         })
     }
