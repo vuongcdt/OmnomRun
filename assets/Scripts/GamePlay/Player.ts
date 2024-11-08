@@ -50,14 +50,17 @@ export class Player extends Component {
 
     private redirect() {
         this._angle += this.speedRedirect;
-        if (this._angle > 90) {
+        if (this._angle > 90 || this._angle < -90) {
             game.pause()
             return;
         }
 
         const rotatedPoint = rotatePointAroundCenter(this._point, this._center, this._angle);
         this.node.position = rotatedPoint;
-        this.node.rotate(angleToQuaternion(this.speedRedirect, Vec3.UNIT_Y));
+        const subtract = this._point.clone().subtract(this._center);
+        const dir = subtract.x / Math.abs(subtract.x);
+
+        this.node.rotate(angleToQuaternion(dir * this.speedRedirect, Vec3.UNIT_Y));
     }
 
     update(deltaTime: number) {
