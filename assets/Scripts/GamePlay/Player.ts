@@ -1,6 +1,7 @@
-import { _decorator, CapsuleCollider, Component, game, ICollisionEvent, Input, input, KeyCode, Node, RigidBody, Vec3 } from 'cc';
+import { _decorator, CapsuleCollider, Component, game, ICollisionEvent, Input, input, ITriggerEvent, KeyCode, Node, RigidBody, Vec3 } from 'cc';
 import { LaneRoad } from '../Common/Enums';
 import { eventTarget, PATH_SPAWNER } from './Events';
+import { Collectable } from './Collectable';
 const { ccclass, property } = _decorator;
 
 @ccclass('Player')
@@ -137,7 +138,7 @@ export class Player extends Component {
 
         if (isCollisionBody) {
             game.pause();
-            console.log('game over');
+            console.log('game over', contactPoint);
             return
         }
 
