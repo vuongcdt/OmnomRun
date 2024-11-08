@@ -2,8 +2,8 @@ import { _decorator, Component, Label, Node } from 'cc';
 import { eventTarget, SET_COIN_UI } from '../GamePlay/Events';
 const { ccclass, property } = _decorator;
 
-@ccclass('GamePlayUI')
-export class GamePlayUI extends Component {
+@ccclass('GamePlayScreen')
+export class GamePlayScreen extends Component {
     @property(Label)
     private scoreText: Label;
 
