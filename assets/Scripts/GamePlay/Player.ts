@@ -2,7 +2,7 @@ import { _decorator, CapsuleCollider, Component, game, ICollisionEvent, Input, i
 import { LaneRoad } from '../Common/Enums';
 import { eventTarget, PATH_SPAWNER } from './Events';
 import { Collectable } from './Collectable';
-import { angleToQuaternion, rotatePointAroundCenter } from '../Common/Utils';
+import { angleToQuaternion, getDirX, rotatePointAroundCenter } from '../Common/Utils';
 const { ccclass, property } = _decorator;
 
 @ccclass('Player')
@@ -25,12 +25,10 @@ export class Player extends Component {
     private _playerAction: Node;
     private _capsuleCollier: CapsuleCollider;
     private _playerPos: Vec3 = new Vec3();
-
-    private _distance: number = -30;
-
+    private _distance: number = -50;
     private _point: Vec3 = new Vec3(0, 0, this._distance);
     private _angle: number = 0;
-    private _center: Vec3 = new Vec3(-5, 0, this._distance);
+    private _isRedirect: boolean = true;
 
     start() {
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
@@ -50,21 +48,32 @@ export class Player extends Component {
 
     private redirect() {
         this._angle += this.speedRedirect;
-        if (this._angle > 90 || this._angle < -90) {
+        if (this._targetLane == LaneRoad.MidlleLane) {
+            console.log('game over 2');
             game.pause()
             return;
         }
 
-        const rotatedPoint = rotatePointAroundCenter(this._point, this._center, this._angle);
+        if (this._angle > 90) {
+            console.log('redirect done');
+            this._angle = 0;
+            this._isRedirect = false;
+            game.pause();
+            return;
+        }
+
+
+        const center: Vec3 = new Vec3((1 - this._targetLane) * -10, 0, this._distance);
+
+        const rotatedPoint = rotatePointAroundCenter(this._point, center, this._angle);
         this.node.position = rotatedPoint;
-        const subtract = this._point.clone().subtract(this._center);
-        const dir = subtract.x / Math.abs(subtract.x);
+        const dir = getDirX(this._point, center);
 
         this.node.rotate(angleToQuaternion(dir * this.speedRedirect, Vec3.UNIT_Y));
     }
 
     update(deltaTime: number) {
-        if (this._playerPos.z < this._distance) {
+        if (this._playerPos.z < this._distance && this._isRedirect && this._angle <= 90) {
             this.redirect();
             return;
         }
