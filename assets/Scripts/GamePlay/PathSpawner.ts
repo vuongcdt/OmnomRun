@@ -36,9 +36,13 @@ export class PathSpawner extends Component {
 
     private spawnNewPath(playerZ: number) {
         this._pathSegments.forEach((path, index) => {
-            if (path.position.z > playerZ + this.segmentLength) {
-                path.setPosition(0, 0, path.position.z - (this.numberOfSegments - 1) * this.segmentLength);
-                const random = randomRangeInt(0, 3);
+            if (path.position.z < playerZ + this.segmentLength) {
+                return;
+            }
+
+            path.setPosition(0, 0, path.position.z - (this.numberOfSegments - 1) * this.segmentLength);
+            if (playerZ < -100) {
+                const random = randomRangeInt(0, 5);
                 this._paths[index].setRedirect(random == 0);
             }
         })

@@ -26,14 +26,13 @@ export class Player extends Component {
     private _capsuleCollier: CapsuleCollider;
     private _playerPos: Vec3 = new Vec3();
     private _distance: number = -50;
-    private _pointRedirect: Vec3 = new Vec3(0, 0, this._distance);
     private _angleRedirect: number = 0;
     private _isRedirect: boolean = false;
 
     start() {
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
         this._capsuleCollier = this.getComponentInChildren(CapsuleCollider);
-        
+
         this._capsuleCollier.on('onCollisionEnter', this.onCollisionEnter, this);
         this._capsuleCollier.on('onCollisionExit', this.onCollisionExit, this);
         eventTarget.on(SET_REDIRECT, e => this._isRedirect = true);
@@ -66,12 +65,12 @@ export class Player extends Component {
             return;
         }
 
+        const centerRedirect: Vec3 = new Vec3((1 - this._targetLane) * -5, 0, this._playerPos.z);
+        const pointRedirect: Vec3 = new Vec3(0, 0, this._playerPos.z);
 
-        const centerRedirect: Vec3 = new Vec3((1 - this._targetLane) * -10, 0, this._distance);
-
-        const rotatedPoint = rotatePointAroundCenter(this._pointRedirect, centerRedirect, this._angleRedirect);
+        const rotatedPoint = rotatePointAroundCenter(pointRedirect, centerRedirect, this._angleRedirect);
         this.node.position = rotatedPoint;
-        const dir = getDirX(this._pointRedirect, centerRedirect);
+        const dir = getDirX(pointRedirect, centerRedirect);
 
         this.node.rotate(angleToQuaternion(dir * this.speedRedirect, Vec3.UNIT_Y));
     }
